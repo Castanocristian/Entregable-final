@@ -29,7 +29,7 @@ beforeAll(async () => {
 
 })
 
-test("GET -> 'URL_BASE', should return status code 200, res.body to be defined and res.body.length === 1", async () => {
+test("GET /users debe de traer todos los usuarios", async () => {
   const res = await request(app)
     .get(URL_BASE)
     .set('Authorization', `Bearer ${TOKEN}`)
@@ -39,7 +39,7 @@ test("GET -> 'URL_BASE', should return status code 200, res.body to be defined a
   expect(res.body).toHaveLength(1)
 })
 
-test("POST -> 'URL_BASE', should return status code 201, res.body to be defined and res.body.firstName === user.firstName ", async () => {
+test("POST /users(login debe retornar el usuario logueado) ", async () => {
 
   const res = await request(app)
     .post(URL_BASE)
@@ -53,7 +53,7 @@ test("POST -> 'URL_BASE', should return status code 201, res.body to be defined 
 
 })
 
-test("PUT -> 'URL_BASE/:id', should return status code 200, res.body to be defined and res.body.firstName = 'Frednerys'", async () => {
+test("PUT /users/:id Debe actualizar un usuario", async () => {
 
   const res = await request(app)
     .put(`${URL_BASE}/${userId}`)
@@ -82,7 +82,7 @@ test("POST -> 'URL_BASE/login', should return status code 200, res.body to be de
   expect(res.body.token).toBeDefined()
 })
 
-test("POST -> 'URL_BASE/login', should return status code 401", async () => {
+test("POST /users(login debe retornar las credenciales incorrectas)", async () => {
   const userLogin = {
     email: 'cris@gmail.com',
     password: 'invalid password'
@@ -95,7 +95,7 @@ test("POST -> 'URL_BASE/login', should return status code 401", async () => {
   expect(res.statusCode).toBe(401)
 })
 
-test("DELETE -> 'URL_BASE/:id', should return status code 204", async () => {
+test("DELETE /users/:id debe eliminar un usuario", async () => {
   const res = await request(app)
     .delete(`${URL_BASE}/${userId}`)
     .set('Authorization', `Bearer ${TOKEN}`)
